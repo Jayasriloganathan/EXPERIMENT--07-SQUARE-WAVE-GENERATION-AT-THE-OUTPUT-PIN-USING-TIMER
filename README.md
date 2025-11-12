@@ -1,7 +1,4 @@
-Name: KAVINRAJA D
-
-Register Number: 212222240047
-# EXPERIMENT 06 SQUARE WAVE GENERATION AT THE OUTPUT PIN USING TIMER
+# EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER
 
 ### Aim:
 To generate a PWM wave at the timer pin output and  simuate it on  proteus using an virtual oscilloscope  
@@ -48,10 +45,16 @@ In normal settings, assuming you’re using the timer module in PWM mode and gen
 
 
 ## Procedure:
-Step1: Open CubeMX & Create New Project.
- 
-Step2: Choose The Target MCU & Double-Click Its Name select the target to be programmed and click on next.
+Step1: Open CubeMX & Create New Project
+ ![image](https://user-images.githubusercontent.com/36288975/226189166-ac10578c-c059-40e7-8b80-9f84f64bf088.png)
 
+
+Step2: Choose The Target MCU & Double-Click Its Name select the target to be programmed  as shown below and click on next 
+
+ ![image](https://user-images.githubusercontent.com/36288975/226189215-2d13ebfb-507f-44fc-b772-02232e97c0e3.png)
+![image](https://user-images.githubusercontent.com/36288975/226189230-bf2d90dd-9695-4aaf-b2a6-6d66454e81fc.png)
+
+![image](https://user-images.githubusercontent.com/36288975/226189280-ed5dcf1d-dd8d-43ae-815d-491085f4863b.png)
 
 Step3: Configure Timer2 Peripheral To Operate In PWM Mode With CH1 Output
 ![image](https://github.com/vasanthkumarch/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/36288975/682c851a-7dfe-4089-8395-f76088d43896)
@@ -93,41 +96,111 @@ Step14. click on debug and simulate using simulation as shown below
   
 
 ## STM 32 CUBE PROGRAM :
-```
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file           : main.c
+  * @brief          : Main program body
+  ******************************************************************************
+  * @attention
+  *
+  * <h2><center>&copy; Copyright (c) 2025 STMicroelectronics.
+  * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+/* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+
+/* USER CODE END Includes */
+
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
+
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+/* USER CODE END PD */
+
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
 TIM_HandleTypeDef htim2;
 
+/* USER CODE BEGIN PV */
+
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM2_Init(void);
+/* USER CODE BEGIN PFP */
+
+/* USER CODE END PFP */
+
+/* Private user code ---------------------------------------------------------*/
+/* USER CODE BEGIN 0 */
+
+/* USER CODE END 0 */
+
+/**
+  * @brief  The application entry point.
+  * @retval int
+  */
 int main(void)
 {
+  /* USER CODE BEGIN 1 */
+
+  /* USER CODE END 1 */
+
+  /* MCU Configuration--------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
 
-  SystemClock_Config();
 
+  SystemClock_Config();
   MX_GPIO_Init();
   MX_TIM2_Init();
-
+  /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim2);
   HAL_TIM_PWM_Init(&htim2);
   HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
 
+  /* USER CODE END 2 */
+
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+
   while (1)
   {
   }
-
 }
 
+/**
+  * @brief System Clock Configuration
+  * @retval None
+  */
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
-
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
-
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
@@ -136,7 +209,6 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
@@ -150,6 +222,11 @@ void SystemClock_Config(void)
   }
 }
 
+/**
+  * @brief TIM2 Initialization Function
+  * @param None
+  * @retval None
+  */
 static void MX_TIM2_Init(void)
 {
 
@@ -157,12 +234,13 @@ static void MX_TIM2_Init(void)
   TIM_MasterConfigTypeDef sMasterConfig = {0};
   TIM_OC_InitTypeDef sConfigOC = {0};
 
+
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 1;
+  htim2.Init.Prescaler = 0;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 10000;
+  htim2.Init.Period = 1000;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
   {
     Error_Handler();
@@ -183,99 +261,117 @@ static void MX_TIM2_Init(void)
     Error_Handler();
   }
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 7000;
+  sConfigOC.Pulse = 900;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
   {
     Error_Handler();
   }
-
   HAL_TIM_MspPostInit(&htim2);
 
 }
 
+/**
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
 static void MX_GPIO_Init(void)
 {
+
+  /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
 }
 
+/* USER CODE BEGIN 4 */
+
+/* USER CODE END 4 */
+
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
 void Error_Handler(void)
 {
+  /* USER CODE BEGIN Error_Handler_Debug */
+  /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
   while (1)
   {
   }
-
 }
 
 #ifdef  USE_FULL_ASSERT
-
+/**
+  * @brief  Reports the name of the source file and the source line number
+  *         where the assert_param error has occurred.
+  * @param  file: pointer to the source file name
+  * @param  line: assert_param error line source number
+  * @retval None
+  */
 void assert_failed(uint8_t *file, uint32_t line)
 {
-
+  /* USER CODE BEGIN 6 */
+  /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+  /* USER CODE END 6 */
 }
-#endif
-```
+#endif /* USE_FULL_ASSERT */
+
+/************************ (C) COPYRIGHT STMicroelectronics ***END OF FILE/
 
 
 
 
+
+## Output screen shots of proteus  :
+## PULSE = 500:
+<img width="1920" height="1200" alt="Screenshot 2025-10-28 092628" src="https://github.com/user-attachments/assets/8d64448b-5c9c-4e94-a210-8495e62f9bee" />
+
+## PULSE = 700:
+<img width="1920" height="1200" alt="Screenshot 2025-10-28 092740" src="https://github.com/user-attachments/assets/0bca7f80-99c8-469e-8b6c-b1d1b3b165f4" />
+
+## PULSE = 900
+ <img width="1920" height="1200" alt="Screenshot 2025-10-28 093000" src="https://github.com/user-attachments/assets/1f1e75cc-18f9-4f8f-a4be-5e3c913cc773" />
 
  
- 
- 
- 
+ ## CIRCUIT DIAGRAM (EXPORT THE GRAPHICS TO PDF AND ADD THE SCREEN SHOT HERE): 
+ ![WhatsApp Image 2025-10-28 at 09 48 25_5041577c](https://github.com/user-attachments/assets/24e013c5-343b-470d-ae85-5435131acf15)
+
 
 ## DUTY CYCLE AND FREQUENCY CALCULATION 
-### FOR DUTY RATIO 50%
-![50%](https://github.com/amal-2006/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/148410730/5bccadbe-a182-4d07-a7e3-63e54c0bfd47)
+FOR PULSE AT 500
 
-TON = 0.6ms
+TON = 30ms
 
-TOFF= 0.6ms
+TOFF= 8 ms
 
-TOTAL TIME = 1.2ms
+TOTAL TIME = 30ms+8ms = 38ms
 
-FREQUENCY = 1/(1.2ms) = 833.33Hz
+FREQUENCY = 1/38ms = 0.026mhz = 26hz
 
-### FOR DUTY RATIO 70%
-![70%](https://github.com/amal-2006/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/148410730/ac49d393-e7a6-48aa-904f-dc3a7555bcd6)
+FOR PULSE AT 700
 
-TON = 0.84ms
+TON = 44ms
 
-TOFF= 0.36
+TOFF= 4.5ms
 
-TOTAL TIME = 1.2ms
+TOTAL TIME = 44ms+4.5ms = 48.5ms
 
-FREQUENCY = 1/(1.2ms) = 833.33Hz
+FREQUENCY = 1/48.5ms = 0.20mhz = 20hz
 
+FOR PULSE AT 900
 
-### FOR DUTY RATIO 90%
-![90%](https://github.com/amal-2006/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/148410730/4ca495c4-a7e4-4754-a48d-7afb0522e7aa)
+TON = 56ms
 
+TOFF= 2ms
 
+TOTAL TIME = 56ms+2ms = 58ms
 
-TON = 1.08ms
-
-TOFF= 0.12ms
-
-TOTAL TIME = 1.2ms
-
-FREQUENCY = 1/(1.2ms) = 833.33Hz
-
-## OUTPUT SCREENSHOTS OF PROTEUS:
-![Proteus Screenshot](https://github.com/amal-2006/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/148410730/0b9be261-6732-4764-b89d-fd0ff58f92b0)
+FREQUENCY = 1/58ms = 0.017mhz = 17hz
 
 
-## CIRCUIT DIAGRAM (EXPORT THE GRAPHICS TO PDF AND ADD THE SCREEN SHOT HERE):
-![Circuit Diagram](https://github.com/amal-2006/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/148410730/46151de5-9188-4aab-baec-07e5d61b2c2e)
-
- 
 ## Result :
-A PWM Signal is generated using the following frequency and various duty cycles are simulated.
-
-
-
-
+A PWM Signal is generated using the following frequency and various duty cycles are simulated
