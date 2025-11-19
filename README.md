@@ -96,6 +96,7 @@ Step14. click on debug and simulate using simulation as shown below
   
 
 ## STM 32 CUBE PROGRAM :
+```
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
@@ -324,9 +325,10 @@ void assert_failed(uint8_t *file, uint32_t line)
 
 
 
-
+```
 
 ## Output screen shots of proteus  :
+
 ## PULSE = 500:
 <img width="1920" height="1200" alt="Screenshot 2025-10-28 092628" src="https://github.com/user-attachments/assets/8d64448b-5c9c-4e94-a210-8495e62f9bee" />
 
@@ -342,6 +344,7 @@ void assert_failed(uint8_t *file, uint32_t line)
 
 
 ## DUTY CYCLE AND FREQUENCY CALCULATION 
+```
 FOR PULSE AT 500
 
 TON = 30ms
@@ -351,7 +354,9 @@ TOFF= 8 ms
 TOTAL TIME = 30ms+8ms = 38ms
 
 FREQUENCY = 1/38ms = 0.026mhz = 26hz
+```
 
+```
 FOR PULSE AT 700
 
 TON = 44ms
@@ -361,6 +366,9 @@ TOFF= 4.5ms
 TOTAL TIME = 44ms+4.5ms = 48.5ms
 
 FREQUENCY = 1/48.5ms = 0.20mhz = 20hz
+```
+
+```
 
 FOR PULSE AT 900
 
@@ -372,6 +380,6 @@ TOTAL TIME = 56ms+2ms = 58ms
 
 FREQUENCY = 1/58ms = 0.017mhz = 17hz
 
-
+```
 ## Result :
 A PWM Signal is generated using the following frequency and various duty cycles are simulated
