@@ -389,13 +389,21 @@ DUTY CYCLE = TON /(TON+TOFF)
 
 FOR PULSE AT 900
 
-TON = 56ms
+TON = 5.4 * 0.1 * 10^-3
+    = 0.00054s
+TOFF= 0.6 x 0.1 x 10^-3
+    = 0.00006s
+TOTAL TIME = TON + TOFF
+           = 0.00054 + 0.00006
+           = 0.0006s
+FREQUENCY = 1/(TOTAL TIME)
+          = 1666.67 Hz
+DUTY CYCLE = TON /(TON+TOFF)
+           = 0.00054/0.0006
+           = 0.9
+      IN % =0.9*100 
+           = 90 %
 
-TOFF= 2ms
-
-TOTAL TIME = 56ms+2ms = 58ms
-
-FREQUENCY = 1/58ms = 0.017mhz = 17hz
 
 ```
 ## Result :
